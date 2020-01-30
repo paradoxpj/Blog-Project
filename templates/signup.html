@@ -20,6 +20,10 @@
   {{ form.password1 }}
   <p>Confirm Password:</p>
   {{ form.password2 }}
+  <br>
+  <p><strong>Prove you're also a human like us:</strong></p>
+  {{ form.captcha }}
+  {{ form.captcha.errors }}
   <button type="submit">create</button>
-  <p class="message">Already registered? <a href="{% url 'blog:login' %}">Log In</a></p>
+  <br><br><p class="message">Already registered? <a href="{% url 'blog:login' %}">Log In</a></p>
 </form>
