@@ -4,6 +4,15 @@ from django.contrib.auth import login, authenticate, logout
 from .forms import SignUpForm, LoginForm
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+
+from .models import Post
+
+from django.urls import reverse
+
+from datetime import datetime
 
 
 @login_required
@@ -58,3 +67,14 @@ def signup_view(request):
 def logout_view(request):
     logout(request)
     return redirect('blog:login')
+
+
+class PostCreate(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'description', 'image',]
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.created_on = datetime.now()
+        return super().form_valid(form)
+    def get_success_url(self):
+        return reverse('blog:home')

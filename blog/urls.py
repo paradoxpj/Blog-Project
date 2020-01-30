@@ -9,4 +9,6 @@ urlpatterns = [
     path('home/', views.home, name="home"),
     path('accounts/login/', views.login_view, name="login"),
     path('accounts/logout', views.logout_view, name="logout"),
+    path('upload/', views.PostCreate.as_view(), name="post_create"),
+    
 ]
