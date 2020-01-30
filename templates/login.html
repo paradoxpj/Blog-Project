@@ -1,0 +1,23 @@
+<form method="post">
+  {% csrf_token %}
+  {% if form.errors %}
+    {% for field in form %}
+      {% for error in field.errors %}
+      <div>
+          <strong>{{ error|escape }}</strong>
+      </div>
+      {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+      <div>
+        <strong>{{ error|escape }}</strong>
+      </div>
+    {% endfor %}
+  {% endif %}
+  <p>Enter Username:</p>
+  {{ form.username }}
+  <p>Enter Password:</p>
+  {{ form.password }}
+  <button type="submit">login</button>
+  <p>Not registered? <a href="{% url 'blog:signup' %}">Create an account</a></p>
+</form>
