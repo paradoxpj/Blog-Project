@@ -111,3 +111,14 @@ def searchusers(request):
 
     else:
         return render(request, 'search_results.html')
+
+
+@login_required
+def profile_view(request, user_id):
+    searched_user = User.objects.get(pk=user_id)
+    posts = Post.objects.filter(user=searched_user)
+    context = {
+        'posts': posts,
+        'searched_user': searched_user
+    }
+    return render(request, 'profile_view.html', context)

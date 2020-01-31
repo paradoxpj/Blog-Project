@@ -1,0 +1,8 @@
+<h3>Profile of {{ searched_user }}</h3> 
+
+{% for post in posts %}
+  <h5>{{ post.title }}</h5>
+  <img src="{{ post.image.url }}" width="175" length="175">
+  <p>{{ post.description }}<p>
+  <p><i>Uploaded by: {{ user.username }}</i><p>
+{% endfor %}

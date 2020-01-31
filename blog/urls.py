@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/logout', views.logout_view, name="logout"),
     path('upload/', views.PostCreate.as_view(), name="post_create"),
     path('search/', views.searchusers, name='search_results'),
+    path('profile/<int:user_id>/', views.profile_view, name='profile_view'),
 ]
