@@ -9,4 +9,9 @@
   <img src="{{ post.image.url }}" width="175" length="175">
   <p>{{ post.description }}<p>
   <p><i>Uploaded by: {{ user.username }}</i><p>
+
+  <p> Search a user: </p>
+  <form action="{% url 'blog:search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
 {% endfor %}

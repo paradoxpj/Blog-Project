@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.models import User
 
 from .forms import SignUpForm, LoginForm
 
@@ -7,12 +8,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import ListView
 
 from .models import Post
 
 from django.urls import reverse
 
 from datetime import datetime
+
+from django.db.models import Q
 
 
 
@@ -81,3 +85,29 @@ def home(request):
         'user': user,
     }
     return render(request, 'home.html', context)
+
+
+@login_required
+def searchusers(request):
+    if request.method == 'GET':
+        query= request.GET.get('q')
+
+        submitbutton= request.GET.get('submit')
+
+        if query is not None:
+            lookups= Q(username__icontains=query)
+
+            results= User.objects.filter(lookups).distinct()
+
+            context={'searched_user': results,
+                     'submitbutton': submitbutton,
+                     'title' : 'Search results'
+            }
+
+            return render(request, 'search_results.html', context)
+
+        else:
+            return render(request, 'search_results.html')
+
+    else:
+        return render(request, 'search_results.html')
