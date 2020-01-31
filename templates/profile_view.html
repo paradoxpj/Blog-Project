@@ -1,8 +1,11 @@
-<h3>Profile of {{ searched_user }}</h3> 
+<a href="{% url 'blog:home' %}">Home</a><br>
+<a href="{% url 'blog:logout' %}">Logout</a><br>
+
+<h3>Profile of {{ searched_user }}</h3>
 
 {% for post in posts %}
   <h5>{{ post.title }}</h5>
   <img src="{{ post.image.url }}" width="175" length="175">
   <p>{{ post.description }}<p>
-  <p><i>Uploaded by: {{ user.username }}</i><p>
+  <p><i>Uploaded by: {{ post.user.username }} on {{ post.created_on }}</i><p>
 {% endfor %}
