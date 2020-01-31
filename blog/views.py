@@ -15,14 +15,6 @@ from django.urls import reverse
 from datetime import datetime
 
 
-@login_required
-def home(request):
-    user = request.user
-    context = {
-        'name': user.username
-    }
-    return render(request, 'home.html', context)
-
 
 def login_view(request):
     user = request.user
@@ -78,3 +70,14 @@ class PostCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     def get_success_url(self):
         return reverse('blog:home')
+
+
+@login_required
+def home(request):
+    user = request.user
+    posts = Post.objects.filter(user=user)
+    context = {
+        'posts' : posts,
+        'user': user,
+    }
+    return render(request, 'home.html', context)

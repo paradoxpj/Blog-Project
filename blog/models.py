@@ -7,7 +7,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     description = models.CharField(max_length=500, blank=False)
-    image = models.ImageField(upload_to='uploads/', blank=False)
+    image = models.ImageField(upload_to='uploads', blank=False)
     created_on = models.DateTimeField()
 
     def __str__(self):
